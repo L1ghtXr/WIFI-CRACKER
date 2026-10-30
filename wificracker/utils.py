@@ -25,15 +25,49 @@ def require_binary(*names: str) -> None:
         raise ToolError(f"missing binaries: {', '.join(missing)}")
 
 
+def _popen_args(cmd: List[str], capture: bool) -> dict:
+    return dict(
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.PIPE if capture else subprocess.DEVNULL,
+        stderr=subprocess.STDOUT if capture else subprocess.DEVNULL,
+        text=True,
+    )
+
+
 def run(cmd: List[str], check: bool = False) -> subprocess.CompletedProcess:
     try:
-        return subprocess.run(cmd, check=check, capture_output=True, text=True)
+        return subprocess.run(cmd, check=check, **_popen_args(cmd, capture=True))
     except FileNotFoundError as e:
         raise ToolError(str(e)) from e
 
 
 def run_quiet(cmd: List[str]) -> None:
-    subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
+    try:
+        subprocess.run(cmd, check=False, **_popen_args(cmd, capture=False))
+    except FileNotFoundError as e:
+        raise ToolError(str(e)) from e
+
+
+def tool_version(binary: str) -> str:
+    """Best-effort version string — tries --version, then -h, then -V."""
+    if which(binary) is None:
+        return ""
+    for flag in ("--version", "-V", "-h"):
+        try:
+            r = subprocess.run(
+                [binary, flag],
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                timeout=5,
+            )
+        except (subprocess.TimeoutExpired, OSError):
+            continue
+        out = (r.stdout or "").strip().splitlines()
+        if out:
+            return out[0]
+    return ""
 
 
 @dataclass
