@@ -41,6 +41,7 @@ def crack(
     wordlist: Union[Path, str],
     mode: Optional[int] = None,
     potfile: Optional[Union[Path, str]] = None,
+    force: bool = False,
 ) -> str:
     h = Path(hashfile)
     w = Path(wordlist)
@@ -54,9 +55,10 @@ def crack(
         "-m", str(m),
         "-a", "0",
         str(h), str(w),
-        "--quiet", "--force",
-        "--status", "--status-timer=5",
+        "--quiet",
     ]
+    if force:
+        cmd.append("--force")
     if potfile:
         cmd += ["--potfile-path", str(potfile)]
     return run(cmd).stdout or ""
