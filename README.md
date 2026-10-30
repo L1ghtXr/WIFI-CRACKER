@@ -1,44 +1,50 @@
-<div align="center">WiFi Cracker
+<div align="center">
 
+# WiFi Cracker
+
+```text
  __        ___ _____ ___
  \ \      / (_)  ___|_ _|
   \ \ /\ / /| | |_   | |
    \ V  V / | |  _|  | |
     \_/\_/  |_|_|   |___|
+```
 
-Real Wi-Fi Auditing Tooling
+### Real Wi-Fi Auditing Tooling
 
-One menu. Real tools. Zero fake results.
+**One menu. Real tools. Zero fake results.**
 
-""Python" (https://img.shields.io/badge/Python-3.9%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)" (https://python.org)
-""Platform" (https://img.shields.io/badge/Platform-Linux-1793D1?style=for-the-badge&logo=linux&logoColor=white)" (https://kernel.org)
-""License" (https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)" (LICENSE)
-""Status" (https://img.shields.io/badge/Status-Stable-brightgreen?style=for-the-badge)" (.)
-""PRs" (https://img.shields.io/badge/PRs-Welcome-blueviolet?style=for-the-badge)" (.)
-""Author" (https://img.shields.io/badge/Author-L1ghtXr-ff69b4?style=for-the-badge)" (.)
+[![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Platform](https://img.shields.io/badge/Platform-Linux-1793D1?style=for-the-badge&logo=linux&logoColor=white)](https://kernel.org)
+[![License](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Stable-brightgreen?style=for-the-badge)](.)
+[![PRs](https://img.shields.io/badge/PRs-Welcome-blueviolet?style=for-the-badge)](.)
+[![Author](https://img.shields.io/badge/Author-L1ghtXr-ff69b4?style=for-the-badge)](https://github.com/L1ghtXr)
 
-"Overview" (#-overview) · "Features" (#-features) · "Installation" (#-installation) · "Usage" (#-usage) · "Platforms" (#-platform-support-matrix) · "Troubleshooting" (#-troubleshooting) · "Legal" (#-legal--terms)
+**[Overview](#-overview) · [Features](#-features) · [Installation](#-installation) · [Usage](#-usage) · [Platforms](#-platform-support-matrix) · [Troubleshooting](#-troubleshooting) · [Legal](#-legal--terms)**
 
-</div>---
+</div>
 
-📖 Overview
+---
 
-WiFi Cracker is a menu-driven wireless security auditing toolkit that provides a unified interface for established wireless and network security utilities.
+## 📖 Overview
+
+**WiFi Cracker** is a menu-driven wireless security auditing toolkit that provides a unified interface for established wireless and network security utilities.
 
 Instead of implementing fake or simulated functionality, the project invokes the actual security tools installed on the system.
 
 Supported tooling includes:
 
-- "aircrack-ng"
-- "hcxtools"
-- "hcxdumptool"
-- "hashcat"
-- "john"
-- "kismet"
-- "wifite"
-- "nmap"
-- "tshark"
-- "scapy"
+- `aircrack-ng`
+- `hcxtools`
+- `hcxdumptool`
+- `hashcat`
+- `john`
+- `kismet`
+- `wifite`
+- `nmap`
+- `tshark`
+- `scapy`
 
 Every operation is backed by the output of the corresponding real binary.
 
@@ -46,41 +52,42 @@ There are:
 
 - No simulated captures
 - No fake handshake results
-- No fabricated "KEY FOUND" messages
+- No fabricated `KEY FOUND` messages
 - No placeholder cracking results
 
 A handshake is only considered valid when the underlying auditing tool confirms it. Likewise, PMKID conversion is only reported when the conversion tool produces valid output.
 
-«Designed for authorized security assessments only.
-
-Only test wireless networks that you own or have explicit permission to assess.»
-
----
-
-✨ Features
-
-Category| Capabilities
-🔍 Discovery| "airodump-ng" scanning, Kismet live monitoring, "nmap" host discovery
-🤝 Handshake Capture| Wireless capture workflow with real 4-way handshake verification
-🔑 PMKID Capture| "hcxdumptool" + "hcxpcapngtool" with Hashcat "22000" support
-🧠 Hash Detection| Automatic detection for "hc22000", bcrypt, sha512crypt, sha256crypt, md5crypt, MD5, SHA-256 and NetNTLM
-🛠 Cracking| "aircrack-ng", "hashcat", and "john" integration
-📦 Packet Analysis| "tshark", "hcxpcapngtool", and Scapy workflows
-🎛 Automation| Wifite integration and persistent configuration
-⚙️ CLI| Headless command-line interface for scripting and automation
-🎨 Interface| ANSI-colored terminal UI, banners, menus and tool availability checks
-🧩 Configuration| Persistent configuration stored under "~/.config/wificracker/"
+> **Designed for authorized security assessments only.**
+>
+> Only test wireless networks that you own or have explicit permission to assess.
 
 ---
 
-🚀 Installation
+## ✨ Features
 
-Prerequisites
+| Category | Capabilities |
+|---|---|
+| 🔍 **Discovery** | `airodump-ng` scanning, Kismet live monitoring, `nmap` host discovery |
+| 🤝 **Handshake Capture** | Wireless capture workflow with real 4-way handshake verification |
+| 🔑 **PMKID Capture** | `hcxdumptool` + `hcxpcapngtool` with Hashcat `22000` support |
+| 🧠 **Hash Detection** | Automatic detection for `hc22000`, bcrypt, sha512crypt, sha256crypt, md5crypt, MD5, SHA-256 and NetNTLM |
+| 🛠 **Cracking** | `aircrack-ng`, `hashcat`, and `john` integration |
+| 📦 **Packet Analysis** | `tshark`, `hcxpcapngtool`, and Scapy workflows |
+| 🎛 **Automation** | Wifite integration and persistent configuration |
+| ⚙️ **CLI** | Headless command-line interface for scripting and automation |
+| 🎨 **Interface** | ANSI-colored terminal UI, banners, menus and tool availability checks |
+| 🧩 **Configuration** | Persistent configuration stored under `~/.config/wificracker/` |
+
+---
+
+# 🚀 Installation
+
+## Prerequisites
 
 Before installing, ensure your system provides:
 
-- Linux
-- Python 3.9+
+- **Linux**
+- **Python 3.9+**
 - Root privileges where required
 - A wireless adapter capable of monitor mode
 - A compatible adapter/driver for packet injection when required
@@ -92,38 +99,47 @@ Example compatible chipsets include:
 - Realtek RTL8812AU
 - MediaTek MT7610U
 
-«Hardware and driver support varies by distribution and kernel version.»
+> Hardware and driver support varies by distribution and kernel version.
 
 ---
 
-📦 Debian / Kali / Ubuntu / Parrot
+## 📦 Debian / Kali / Ubuntu / Parrot
 
 Install the required dependencies:
 
+```bash
 sudo apt update && sudo apt install -y \
   aircrack-ng hcxtools hcxdumptool hashcat john kismet wifite \
   nmap tshark iw wireless-tools rfkill python3 python3-pip git
+```
 
 Clone the repository:
 
+```bash
 git clone https://github.com/L1ghtXr/wifi-cracker.git
 cd wifi-cracker
+```
 
 Install Python dependencies:
 
+```bash
 pip install -r requirements.txt
 pip install -e .
+```
 
 Run:
 
+```bash
 sudo python3 -m wificracker
+```
 
 ---
 
-🐍 Installation from Source
+## 🐍 Installation from Source
 
 For distributions where you prefer an isolated Python environment:
 
+```bash
 git clone https://github.com/L1ghtXr/wifi-cracker.git
 cd wifi-cracker
 
@@ -132,19 +148,23 @@ source .venv/bin/activate
 
 pip install -r requirements.txt
 pip install -e .
+```
 
 Run:
 
+```bash
 sudo python3 -m wificracker
+```
 
 ---
 
-🧭 Usage
+# 🧭 Usage
 
-Interactive Menu
+## Interactive Menu
 
 The main interface provides a unified menu for the supported auditing workflows:
 
+```text
 ┌─────────────────────────────────────────────┐
 │              WIFI SECURITY AUDITOR           │
 ├─────────────────────────────────────────────┤
@@ -158,34 +178,35 @@ The main interface provides a unified menu for the supported auditing workflows:
 │  0. Exit                                    │
 │                                             │
 └─────────────────────────────────────────────┘
+```
 
-Menu Components
+### Menu Components
 
-Scan
+**Scan**
 
-- "airodump-ng"
+- `airodump-ng`
 - Kismet
-- "nmap"
+- `nmap`
 
-Info
+**Info**
 
 - Installed tool detection
 - Wireless interfaces
 - Configuration information
 
-Audit
+**Audit**
 
 - Handshake capture
 - PMKID capture
 - Capture verification
 
-Password
+**Password**
 
 - Aircrack-ng
 - Hashcat
 - John
 
-Packets
+**Packets**
 
 - Tshark
 - HCX utilities
@@ -193,51 +214,64 @@ Packets
 
 ---
 
-🖥️ Headless CLI
+## 🖥️ Headless CLI
 
 The project can also be used without the interactive menu.
 
-Network Discovery
+### Network Discovery
 
+```bash
 wificracker-cli scan -i wlan0 -t 30
+```
 
-Capture
+### Capture
 
+```bash
 wificracker-cli capture \
   -i wlan0 \
   -b AA:BB:CC:DD:EE:FF \
   -c 6 \
   -o cap/
+```
 
-PMKID Workflow
+### PMKID Workflow
 
+```bash
 wificracker-cli pmkid \
   -i wlan0 \
   -o cap/ \
   --wait 90
+```
 
-Password Audit
+### Password Audit
 
+```bash
 wificracker-cli crack \
   -f cap/hs_*.cap \
   -w /usr/share/wordlists/rockyou.txt
+```
 
-Hashcat
+### Hashcat
 
+```bash
 wificracker-cli hashcat \
   -f cap/pmkid.hc22000 \
   -w /usr/share/wordlists/rockyou.txt
+```
 
-Dependency Check
+### Dependency Check
 
+```bash
 wificracker-cli deps
+```
 
 ---
 
-🔄 Example Workflow
+## 🔄 Example Workflow
 
-Handshake → Password Audit
+### Handshake → Password Audit
 
+```bash
 sudo wificracker-cli scan -i wlan0 -t 20
 
 sudo wificracker-cli capture \
@@ -249,9 +283,11 @@ sudo wificracker-cli capture \
 wificracker-cli crack \
   -f cap/hs_aabbccddeeff-01.cap \
   -w rockyou.txt
+```
 
-PMKID → Hashcat
+### PMKID → Hashcat
 
+```bash
 sudo wificracker-cli pmkid \
   -i wlan0 \
   -o cap/ \
@@ -260,78 +296,93 @@ sudo wificracker-cli pmkid \
 hashcat -m 22000 \
   cap/pmkid_*.hc22000 \
   rockyou.txt
+```
 
-«Use these workflows only against networks for which you have explicit authorization.»
+> Use these workflows only against networks for which you have explicit authorization.
 
 ---
 
-💻 Platform Support Matrix
+# 💻 Platform Support Matrix
 
-Platform| Monitor Mode| Injection| PMKID| Status
-🐉 Kali Linux| ✅| ✅| ✅| Full support
-🦜 Parrot OS| ✅| ✅| ✅| Full support
-🎩 BlackArch| ✅| ✅| ✅| Full support
-🐧 Debian 12+| ✅| ✅| ✅| Driver-dependent
-🟠 Ubuntu 22.04+| ✅| ✅| ✅| Driver-dependent
-🏹 Arch / Manjaro| ✅| ✅| ✅| Full support
-🎩 Fedora 38+| ✅| ✅| ✅| Driver / SELinux dependent
-🍎 macOS| ⚠️| ⚠️| ❌| Partial
-🪟 WSL2| ❌| ❌| ❌| Not supported
-🪟 Windows| ❌| ❌| ❌| Not supported
-📱 Termux / Android| ❌| ❌| ❌| Not supported
-🐳 Docker| ❌| ❌| ❌| Not supported
+| Platform | Monitor Mode | Injection | PMKID | Status |
+|---|:---:|:---:|:---:|---|
+| 🐉 Kali Linux | ✅ | ✅ | ✅ | Full support |
+| 🦜 Parrot OS | ✅ | ✅ | ✅ | Full support |
+| 🎩 BlackArch | ✅ | ✅ | ✅ | Full support |
+| 🐧 Debian 12+ | ✅ | ✅ | ✅ | Driver-dependent |
+| 🟠 Ubuntu 22.04+ | ✅ | ✅ | ✅ | Driver-dependent |
+| 🏹 Arch / Manjaro | ✅ | ✅ | ✅ | Full support |
+| 🎩 Fedora 38+ | ✅ | ✅ | ✅ | Driver / SELinux dependent |
+| 🍎 macOS | ⚠️ | ⚠️ | ❌ | Partial |
+| 🪟 WSL2 | ❌ | ❌ | ❌ | Not supported |
+| 🪟 Windows | ❌ | ❌ | ❌ | Not supported |
+| 📱 Termux / Android | ❌ | ❌ | ❌ | Not supported |
+| 🐳 Docker | ❌ | ❌ | ❌ | Not supported |
 
-TL;DR
+### TL;DR
 
-Linux + a compatible wireless adapter is the recommended environment.
+**Linux + a compatible wireless adapter is the recommended environment.**
 
 Other platforms may support individual components such as packet analysis or offline password auditing, but wireless capture functionality depends heavily on access to the host wireless hardware and driver capabilities.
 
 ---
 
-🐉 Kali Linux Setup
+# 🐉 Kali Linux Setup
 
 Kali Linux provides the simplest setup because most required tools are available through its repositories.
 
+```bash
 sudo apt update && sudo apt install -y \
   aircrack-ng hcxtools hcxdumptool hashcat john kismet wifite \
   nmap tshark iw wireless-tools rfkill
+```
 
 Clone and install:
 
+```bash
 git clone https://github.com/L1ghtXr/wifi-cracker.git
 cd wifi-cracker
 
 sudo pip install -r requirements.txt
 sudo pip install -e .
+```
 
 Run:
 
+```bash
 sudo python3 -m wificracker
+```
 
-Verify Wireless Adapter
+### Verify Wireless Adapter
 
+```bash
 sudo airmon-ng start wlan0
 iwconfig
 sudo airmon-ng stop wlan0mon
+```
 
 Look for:
 
+```text
 Mode:Monitor
+```
 
 ---
 
-🐧 Debian / Ubuntu Setup
+# 🐧 Debian / Ubuntu Setup
 
 Install the required packages:
 
+```bash
 sudo apt update && sudo apt install -y \
   aircrack-ng hcxtools hcxdumptool hashcat john kismet wifite \
   nmap tshark iw wireless-tools rfkill build-essential \
   linux-headers-$(uname -r) dkms
+```
 
 Install WiFi Cracker:
 
+```bash
 git clone https://github.com/L1ghtXr/wifi-cracker.git
 cd wifi-cracker
 
@@ -340,20 +391,24 @@ source .venv/bin/activate
 
 pip install -r requirements.txt
 pip install -e .
+```
 
 If monitor mode is unavailable, verify that the adapter and its driver support the required functionality.
 
 ---
 
-🏹 Arch / Manjaro Setup
+# 🏹 Arch / Manjaro Setup
 
+```bash
 sudo pacman -S --needed \
   aircrack-ng hcxtools hcxdumptool hashcat \
   john kismet wifite nmap wireshark-cli \
   iw wireless_tools rfkill python python-pip git base-devel
+```
 
 Install:
 
+```bash
 git clone https://github.com/L1ghtXr/wifi-cracker.git
 cd wifi-cracker
 
@@ -362,24 +417,30 @@ source .venv/bin/activate
 
 pip install -r requirements.txt
 pip install -e .
+```
 
 Run:
 
+```bash
 sudo python -m wificracker
+```
 
 ---
 
-🎩 Fedora Setup
+# 🎩 Fedora Setup
 
 Install dependencies:
 
+```bash
 sudo dnf install -y \
   aircrack-ng hcxtools hcxdumptool hashcat \
   john kismet wifite nmap wireshark-cli \
   iw wireless-tools rfkill python3 python3-pip git
+```
 
 Install:
 
+```bash
 git clone https://github.com/L1ghtXr/wifi-cracker.git
 cd wifi-cracker
 
@@ -388,22 +449,25 @@ source .venv/bin/activate
 
 pip install -r requirements.txt
 pip install -e .
+```
 
 Run:
 
+```bash
 sudo python3 -m wificracker
+```
 
-«Fedora's security policies and NetworkManager configuration may affect wireless auditing workflows. Adjust your system configuration only when appropriate for your authorized testing environment.»
+> Fedora's security policies and NetworkManager configuration may affect wireless auditing workflows. Adjust your system configuration only when appropriate for your authorized testing environment.
 
 ---
 
-🍎 macOS
+# 🍎 macOS
 
 macOS has significant limitations for wireless auditing.
 
 Most built-in Wi-Fi hardware does not provide the same monitor-mode and packet-injection capabilities available under Linux.
 
-Available Components
+### Available Components
 
 The following components can still be useful:
 
@@ -415,24 +479,30 @@ The following components can still be useful:
 
 Install common tools:
 
+```bash
 brew install nmap hashcat wireshark
 pip3 install scapy
+```
 
 Example host discovery:
 
+```bash
 sudo nmap -sn 192.168.1.0/24
+```
 
 Offline Hashcat workflow:
 
+```bash
 hashcat -m 22000 handshake.hc22000 rockyou.txt
+```
 
 For wireless capture, a Linux environment with a compatible USB wireless adapter is recommended.
 
 ---
 
-❌ Unsupported Platforms
+# ❌ Unsupported Platforms
 
-Windows / WSL2
+## Windows / WSL2
 
 WSL2 and standard Windows environments generally do not provide the raw wireless PHY access required by the capture stack.
 
@@ -444,7 +514,7 @@ Recommended environment:
 
 ---
 
-📱 Termux / Android
+## 📱 Termux / Android
 
 Termux itself does not provide the wireless kernel capabilities required for reliable monitor-mode and injection workflows.
 
@@ -459,14 +529,16 @@ For complete auditing functionality, use a Linux host with a compatible external
 
 ---
 
-🐳 Docker
+## 🐳 Docker
 
 Containers do not normally own the wireless PHY.
 
 Even configurations such as:
 
+```text
 --privileged
 --net=host
+```
 
 do not automatically provide the required monitor-mode functionality.
 
@@ -474,22 +546,24 @@ Run the wireless auditing stack directly on the host instead.
 
 ---
 
-🛠 Troubleshooting
+# 🛠 Troubleshooting
 
-Problem| Recommended Action
-Interface not found| Run "iw dev" and verify the exact interface name
-Monitor mode fails| Check adapter/driver support and retry after resolving conflicting processes
-No valid handshake| Verify channel, signal quality and authorized test setup
-"hcxdumptool" produces no capture| Verify adapter compatibility, channel configuration and supported bands
-"hcxpcapngtool" has nothing to convert| Verify that the capture actually contains the required material
-Hashcat mode detection fails| Specify the appropriate "-m" mode manually
-NetworkManager interferes| Temporarily adjust NetworkManager behavior during an authorized capture
-Monitor mode drops| Check driver stability and wireless power-management settings
+| Problem | Recommended Action |
+|---|---|
+| Interface not found | Run `iw dev` and verify the exact interface name |
+| Monitor mode fails | Check adapter/driver support and retry after resolving conflicting processes |
+| No valid handshake | Verify channel, signal quality and authorized test setup |
+| `hcxdumptool` produces no capture | Verify adapter compatibility, channel configuration and supported bands |
+| `hcxpcapngtool` has nothing to convert | Verify that the capture actually contains the required material |
+| Hashcat mode detection fails | Specify the appropriate `-m` mode manually |
+| NetworkManager interferes | Temporarily adjust NetworkManager behavior during an authorized capture |
+| Monitor mode drops | Check driver stability and wireless power-management settings |
 
-Reset Wireless Interface
+### Reset Wireless Interface
 
 If a test leaves the wireless interface in an unexpected state:
 
+```bash
 sudo airmon-ng stop wlan0mon 2>/dev/null
 
 sudo systemctl restart NetworkManager
@@ -497,24 +571,27 @@ sudo systemctl restart NetworkManager
 sudo ip link set wlan0 down
 sudo iw wlan0 set type managed
 sudo ip link set wlan0 up
+```
 
 ---
 
-🧪 Recommended Adapters
+# 🧪 Recommended Adapters
 
-Adapter| Chipset| Monitor| Injection| 5 GHz
-Alfa AWUS036NHA| Atheros AR9271| ✅| ✅| ❌
-Alfa AWUS036ACH| Realtek RTL8812AU| ✅| ✅| ✅
-Alfa AWUS036ACHM| MediaTek MT7610U| ✅| ✅| ✅
-TP-Link TL-WN722N v1| Atheros AR9271| ✅| ✅| ❌
-Panda PAU09| Ralink RT5572| ✅| ✅| ✅
+| Adapter | Chipset | Monitor | Injection | 5 GHz |
+|---|---|:---:|:---:|:---:|
+| Alfa AWUS036NHA | Atheros AR9271 | ✅ | ✅ | ❌ |
+| Alfa AWUS036ACH | Realtek RTL8812AU | ✅ | ✅ | ✅ |
+| Alfa AWUS036ACHM | MediaTek MT7610U | ✅ | ✅ | ✅ |
+| TP-Link TL-WN722N v1 | Atheros AR9271 | ✅ | ✅ | ❌ |
+| Panda PAU09 | Ralink RT5572 | ✅ | ✅ | ✅ |
 
-«Important: TP-Link TL-WN722N v2/v3 use different chipsets from v1. Verify the exact hardware revision before purchasing.»
+> **Important:** TP-Link TL-WN722N v2/v3 use different chipsets from v1. Verify the exact hardware revision before purchasing.
 
 ---
 
-📁 Project Structure
+# 📁 Project Structure
 
+```text
 wifi-cracker/
 ├── README.md
 ├── LICENSE
@@ -541,52 +618,57 @@ wifi-cracker/
         ├── hcxtools.py      # HCX utilities
         ├── wifite.py        # Wifite integration
         └── packets.py       # Scapy integration
+```
 
 ---
 
-⚙️ Configuration
+# ⚙️ Configuration
 
 Persistent configuration is stored at:
 
+```text
 ~/.config/wificracker/
+```
 
 The configuration file is:
 
+```text
 ~/.config/wificracker/config.json
+```
 
 This allows the application to retain configuration between sessions.
 
 ---
 
-🔐 Design Principles
+# 🔐 Design Principles
 
 WiFi Cracker is built around several principles:
 
-Real Tooling
+### Real Tooling
 
 The project acts as an interface around established security tools rather than pretending to reproduce their functionality.
 
-No Fake Results
+### No Fake Results
 
 The application does not generate artificial success messages or simulated captures.
 
-Transparent Failures
+### Transparent Failures
 
 If an underlying tool fails, the failure should be visible instead of being converted into a fake success state.
 
-Modular Architecture
+### Modular Architecture
 
-Individual tools are isolated inside the "tools/" package, making the project easier to maintain and extend.
+Individual tools are isolated inside the `tools/` package, making the project easier to maintain and extend.
 
-Authorized Testing
+### Authorized Testing
 
 The project is intended for legitimate security assessments, lab environments and networks where the tester has permission.
 
 ---
 
-⚖️ Legal & Terms
+# ⚖️ Legal & Terms
 
-Authorized Use Only
+## Authorized Use Only
 
 This software is intended for:
 
@@ -602,28 +684,28 @@ Unauthorized access, interception, disruption or credential attacks may violate 
 
 Examples of relevant legislation include:
 
-- United States: Computer Fraud and Abuse Act (CFAA), 18 U.S.C. § 1030
-- United Kingdom: Computer Misuse Act 1990
-- European Union: Directive 2013/40/EU
-- Indonesia: UU ITE and applicable amendments
+- **United States:** Computer Fraud and Abuse Act (CFAA), 18 U.S.C. § 1030
+- **United Kingdom:** Computer Misuse Act 1990
+- **European Union:** Directive 2013/40/EU
+- **Indonesia:** UU ITE and applicable amendments
 
 Laws vary by jurisdiction. You are responsible for understanding and complying with the laws applicable to your environment.
 
 ---
 
-No Warranty
+## No Warranty
 
-This software is provided "AS IS", without warranty of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose and non-infringement.
+This software is provided **"AS IS"**, without warranty of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose and non-infringement.
 
 ---
 
-No Liability
+## No Liability
 
 In no event shall the authors or copyright holders be liable for any claim, damages or other liability arising from the software or its use.
 
 ---
 
-User Responsibility
+## User Responsibility
 
 You are solely responsible for:
 
@@ -636,7 +718,7 @@ You are solely responsible for:
 
 ---
 
-Responsible Use
+## Responsible Use
 
 The maintainers do not support:
 
@@ -649,7 +731,7 @@ The maintainers do not support:
 
 ---
 
-Security Disclosure
+## Security Disclosure
 
 If you discover a security vulnerability in WiFi Cracker, please avoid publishing sensitive details in a public issue.
 
@@ -657,33 +739,37 @@ Contact the maintainer privately so the issue can be investigated and addressed 
 
 ---
 
-🤝 Contributing
+# 🤝 Contributing
 
 Contributions are welcome.
 
-Development Workflow
+## Development Workflow
 
 1. Fork the repository
 2. Create a feature branch:
 
+```bash
 git checkout -b feature/new-tool
+```
 
 3. Implement and test your changes
 4. Verify dependency detection:
 
+```bash
 wificracker-cli deps
+```
 
 5. Submit a pull request with a clear description
 
 ---
 
-Pull Request Checklist
+## Pull Request Checklist
 
 Before submitting a PR:
 
 - [ ] New functionality uses the real underlying tool where applicable
 - [ ] No fake or simulated results
-- [ ] Availability checks are added to "tools/deps.py"
+- [ ] Availability checks are added to `tools/deps.py`
 - [ ] Menu integration is complete
 - [ ] CLI integration is added when appropriate
 - [ ] Existing functionality remains intact
@@ -693,24 +779,26 @@ Before submitting a PR:
 
 ---
 
-📜 License
+# 📜 License
 
-This project is released under the MIT License.
+This project is released under the **MIT License**.
 
-See ""LICENSE"" (LICENSE) for the complete license text.
-
----
-
-👤 Author
-
-L1ghtXr
-
-GitHub: "@L1ghtXr" (https://github.com/L1ghtXr)
+See [`LICENSE`](LICENSE) for the complete license text.
 
 ---
 
-<div align="center">⭐ If WiFi Cracker saved you time, consider giving the repository a star.
+# 👤 Author
 
-Built with 🥔 by L1ghtXr
+**L1ghtXr**
+
+GitHub: **[@L1ghtXr](https://github.com/L1ghtXr)**
+
+---
+
+<div align="center">
+
+### ⭐ If WiFi Cracker saved you time, consider giving the repository a star.
+
+**Built with 🥔 by L1ghtXr**
 
 </div>
